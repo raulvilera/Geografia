@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Geografia - Tema: Cidades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e0f7fa, #bbdefb);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #455a64;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 5px solid #1e88e5;
+        }
+        
+        .title-section {
+            margin-bottom: 25px;
+        }
+        
+        .title-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .title-section h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+        
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            background: #546e7a;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .info-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .info-item input {
+            width: 90%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #eceff1;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .instructions h3 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+        
+        .instructions p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .question {
+            background: #f5f5f5;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .question-number {
+            background: #1e88e5;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            padding-left: 20px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #90caf9;
+        }
+        
+        .option.selected {
+            background: #bbdefb;
+            border-color: #64b5f6;
+        }
+        
+        .option.correct {
+            background: #c8e6c9;
+            border-color: #81c784;
+        }
+        
+        .option.incorrect {
+            background: #ffcdd2;
+            border-color: #e57373;
+        }
+        
+        .option-letter {
+            background: #78909c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .option-text {
+            flex-grow: 1;
+            padding-top: 3px;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #0d47a1, #1e88e5);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-reset {
+            background: #e0e0e0;
+            color: #424242;
+        }
+        
+        .btn-reset:hover {
+            background: #bdbdbd;
+            transform: translateY(-3px);
+        }
+        
+        .results {
+            background: #e8f5e9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+            border: 2px solid #66bb6a;
+        }
+        
+        .results h3 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #1e88e5;
+            margin: 20px 0;
+        }
+        
+        .score-text {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #455a64;
+        }
+        
+        .feedback {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .explanation {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .explanation h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .explanation p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .info-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .question {
+                padding: 20px 15px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="title-section">
+                <h1>SIMULADO DE GEOGRAFIA</h1>
+                <h2>Tema: Cidades</h2>
+            </div>
+            <div class="info-section">
+                <div class="info-item">
+                    <label for="nome">NOME:</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome">
+                </div>
+                <div class="info-item">
+                    <label for="serie">SÉRIE:</label>
+                    <input type="text" id="serie" placeholder="Ex: 8º Ano">
+                </div>
+                <div class="info-item">
+                    <label for="data">DATA:</label>
+                    <input type="text" id="data" placeholder="dd/mm/aaaa">
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="instructions">
+                <h3>Instruções do Simulado</h3>
+                <p>Este simulado contém 10 questões de múltipla escolha sobre o tema "Cidades".</p>
+                <ul>
+                    <li>Leia cada questão com atenção antes de responder</li>
+                    <li>Selecione apenas uma alternativa por questão</li>
+                    <li>Após responder todas as questões, clique em "CORRIGIR SIMULADO"</li>
+                    <li>Você receberá sua pontuação e feedback sobre seu desempenho</li>
+                </ul>
+                <p>Boa sorte!</p>
+            </div>
+            
+            <div class="questions-container">
+                <!-- Questão 1 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">1</div>
+                        <div class="question-text">Qual das seguintes cidades brasileiras é conhecida por sua função político-administrativa, sendo planejada especificamente para esse propósito?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">São Paulo, SP</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Rio de Janeiro, RJ</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Brasília, DF</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Salvador, BA</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 2 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">2</div>
+                        <div class="question-text">De acordo com a hierarquia urbana brasileira, como são classificadas cidades como Manaus, Goiânia e Belém?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Centros Locais</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Centros de Zona</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Metrópoles Regionais</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Capitais Regionais</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 3 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">3</div>
+                        <div class="question-text">O que são "cidades-dormitório" no contexto urbano brasileiro?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Cidades que abrigam grandes complexos industriais</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Cidades com função predominantemente turística</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Cidades próximas a grandes centros que oferecem moradia mais barata</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Cidades que concentram várias instituições de ensino superior</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 4 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">4</div>
+                        <div class="question-text">O que é o Plano Diretor no contexto do planejamento urbano?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Um documento que estabelece leis para o uso das terras nas cidades</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Um mapa detalhado das redes de transporte urbano</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">O plano de evacuação para situações de risco</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">O documento que define a hierarquia das cidades brasileiras</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 5 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">5</div>
+                        <div class="question-text">Qual das alternativas melhor define o conceito de "territorialidade" nas cidades?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">A divisão política e administrativa dos municípios</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">A dinâmica de uso dos espaços urbanos pelas pessoas</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">A área total que uma cidade ocupa no território</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">O processo de expansão das cidades sobre áreas rurais</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 6 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">6</div>
+                        <div class="question-text">O que são redes urbanas no contexto geográfico brasileiro?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">As conexões de internet de alta velocidade entre cidades</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">As relações e fluxos estabelecidos entre as cidades</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Os sistemas de transporte metroviário nas grandes cidades</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">As áreas verdes planejadas em zonas urbanas</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 7 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">7</div>
+                        <div class="question-text">Qual das seguintes situações representa um risco ambiental urbano?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Construções em encostas de morros</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Proliferação de mosquitos transmissores de doenças</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Violência urbana em áreas periféricas</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Falta de infraestrutura de esgoto</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 8 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">8</div>
+                        <div class="question-text">Segundo o conceito de desenvolvimento sustentável, qual é a relação entre gerações atuais e futuras?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">As gerações atuais devem suprir suas necessidades sem comprometer a capacidade das futuras gerações</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">As gerações futuras devem arcar com os custos do desenvolvimento atual</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">As necessidades das gerações futuras são mais importantes que as atuais</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">O desenvolvimento atual não deve considerar as gerações futuras</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 9 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">9</div>
+                        <div class="question-text">Qual é a principal função urbana de Sorriso, no Mato Grosso?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Industrial</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Portuária</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Agronegócio</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Turística</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Questão 10 -->
+                <div class="question">
+                    <div class="question-header">
+                        <div class="question-number">10</div>
+                        <div class="question-text">Qual fator NÃO contribui para a vulnerabilidade a riscos nas cidades?</div>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-option="a">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">Participação popular nos assuntos urbanos</div>
+                        </div>
+                        <div class="option" data-option="b">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">Fragilidade estrutural de edifícios</div>
+                        </div>
+                        <div class="option" data-option="c">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Ineficiência de infraestrutura de esgoto</div>
+                        </div>
+                        <div class="option" data-option="d">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Ocupações em locais precários</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-submit" id="submit-btn">CORRIGIR SIMULADO</button>
+                <button class="btn btn-reset" id="reset-btn">REINICIAR SIMULADO</button>
+            </div>
+            
+            <div class="results" id="results">
+                <h3>Resultado do Simulado</h3>
+                <div class="score" id="score">0/10</div>
+                <div class="score-text" id="score-text"></div>
+                <div class="feedback" id="feedback"></div>
+                <div class="explanation">
+                    <h4>Respostas Corretas:</h4>
+                    <p><strong>1. C)</strong> Brasília, DF - Cidade planejada para função político-administrativa.</p>
+                    <p><strong>2. C)</strong> Metrópoles Regionais - Influenciam cidades próximas ao seu alcance territorial.</p>
+                    <p><strong>3. C)</strong> Cidades próximas a grandes centros que oferecem moradia mais barata.</p>
+                    <p><strong>4. A)</strong> Documento que estabelece leis para o uso das terras nas cidades.</p>
+                    <p><strong>5. B)</strong> Dinâmica de uso dos espaços urbanos pelas pessoas.</p>
+                    <p><strong>6. B)</strong> Relações e fluxos estabelecidos entre as cidades.</p>
+                    <p><strong>7. B)</strong> Proliferação de mosquitos transmissores de doenças - risco ambiental.</p>
+                    <p><strong>8. A)</strong> As gerações atuais devem suprir suas necessidades sem comprometer a capacidade das futuras.</p>
+                    <p><strong>9. C)</strong> Agronegócio - Sorriso é o maior produtor individual de soja do mundo.</p>
+                    <p><strong>10. A)</strong> Participação popular nos assuntos urbanos - ajuda a reduzir riscos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Respostas corretas
+            const correctAnswers = {
+                1: 'c',
+                2: 'c',
+                3: 'c',
+                4: 'a',
+                5: 'b',
+                6: 'b',
+                7: 'b',
+                8: 'a',
+                9: 'c',
+                10: 'a'
+            };
+            
+            // Selecionar elementos
+            const options = document.querySelectorAll('.option');
+            const submitBtn = document.getElementById('submit-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsDiv = document.getElementById('results');
+            const scoreElement = document.getElementById('score');
+            const scoreTextElement = document.getElementById('score-text');
+            const feedbackElement = document.getElementById('feedback');
+            
+            // Armazenar respostas do usuário
+            let userAnswers = {};
+            
+            // Adicionar evento de clique às opções
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const question = this.closest('.question');
+                    const questionNumber = parseInt(question.querySelector('.question-number').textContent);
+                    const optionLetter = this.getAttribute('data-option');
+                    
+                    // Remover seleção anterior na mesma questão
+                    question.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Selecionar nova opção
+                    this.classList.add('selected');
+                    
+                    // Armazenar resposta
+                    userAnswers[questionNumber] = optionLetter;
+                });
+            });
+            
+            // Evento para submeter o simulado
+            submitBtn.addEventListener('click', function() {
+                // Verificar se todas as questões foram respondidas
+                const answeredQuestions = Object.keys(userAnswers).length;
+                
+                if (answeredQuestions < 10) {
+                    alert('Por favor, responda todas as questões antes de enviar o simulado.');
+                    return;
+                }
+                
+                // Calcular pontuação
+                let score = 0;
+                
+                for (let i = 1; i <= 10; i++) {
+                    if (userAnswers[i] === correctAnswers[i]) {
+                        score++;
+                        // Destacar resposta correta
+                        const correctOption = document.querySelector(`.question:nth-child(${i}) .option[data-option="${correctAnswers[i]}"]`);
+                        correctOption.classList.add('correct');
+                    } else {
+                        // Destacar resposta errada
+                        if (userAnswers[i]) {
+                            const userOption = document.querySelector(`.question:nth-child(${i}) .option[data-option="${userAnswers[i]}"]`);
+                            userOption.classList.add('incorrect');
+                        }
+                        
+                        // Mostrar resposta correta
+                        const correctOption = document.querySelector(`.question:nth-child(${i}) .option[data-option="${correctAnswers[i]}"]`);
+                        correctOption.classList.add('correct');
+                    }
+                }
+                
+                // Exibir resultados
+                scoreElement.textContent = `${score}/10`;
+                
+                // Personalizar feedback baseado na pontuação
+                let feedback = '';
+                if (score >= 9) {
+                    feedback = 'Excelente! Você demonstrou um ótimo conhecimento sobre o tema das cidades.';
+                } else if (score >= 7) {
+                    feedback = 'Muito bom! Seu conhecimento sobre cidades é bastante satisfatório.';
+                } else if (score >= 5) {
+                    feedback = 'Bom! Você tem uma base sólida, mas pode melhorar alguns conceitos.';
+                } else {
+                    feedback = 'Continue estudando! Revise os conceitos sobre cidades para melhorar seu desempenho.';
+                }
+                
+                scoreTextElement.textContent = `Você acertou ${score} de 10 questões`;
+                feedbackElement.textContent = feedback;
+                
+                // Mostrar resultados
+                resultsDiv.style.display = 'block';
+                
+                // Scroll para os resultados
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Evento para reiniciar o simulado
+            resetBtn.addEventListener('click', function() {
+                // Limpar seleções
+                userAnswers = {};
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Esconder resultados
+                resultsDiv.style.display = 'none';
+                
+                // Resetar campos de informação
+                document.getElementById('nome').value = '';
+                document.getElementById('serie').value = '';
+                document.getElementById('data').value = '';
+                
+                // Scroll para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Preencher data atual automaticamente
+            const today = new Date();
+            const formattedDate = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear()}`;
+            document.getElementById('data').placeholder = formattedDate;
+        });
+    </script>
+</body>
+</html>
